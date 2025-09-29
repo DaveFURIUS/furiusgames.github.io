@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pong</title>
+<style>body{background:#080820;color:#fff;font-family:Arial;text-align:center}canvas{background:#111;margin-top:12px;border-radius:8px}</style>
+</head>
+<body>
+  <a class="back" href="../index.html" style="color:#7efcff;text-decoration:none;display:inline-block;margin-top:8px">← Volver</a>
+  <h1>Pong</h1>
+  <canvas id="g" width="700" height="400"></canvas>
+<script>
+const cvs=document.getElementById('g'), ctx=cvs.getContext('2d');
+const PADDLE_H=80, PADDLE_W=10;
+let leftY=(cvs.height-PADDLE_H)/2, rightY=(cvs.height-PADDLE_H)/2;
+let ball={x:cvs.width/2,y:cvs.height/2, vx:4, vy:3, r:8};
+let up=false, down=false, w=false, s=false;
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowUp') up=true;
+  if(e.key==='ArrowDown') down=true;
+  if(e.key==='w') w=true;
+  if(e.key==='s') s=true;
+});
+document.addEventListener('keyup', e=>{
+  if(e.key==='ArrowUp') up=false;
+  if(e.key==='ArrowDown') down=false;
+  if(e.key==='w') w=false;
+  if(e.key==='s') s=false;
+});
+function draw(){
+  ctx.fillStyle='#111'; ctx.fillRect(0,0,cvs.width,cvs.height);
+  // paddles
+  ctx.fillStyle='#eee'; ctx.fillRect(8,leftY,PADDLE_W,PADDLE_H);
+  ctx.fillRect(cvs.width-18,rightY,PADDLE_W,PADDLE_H);
+  // ball
+  ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2); ctx.fill();
+  // move ball
+  ball.x += ball.vx; ball.y += ball.vy;
+  if(ball.y < ball.r || ball.y > cvs.height-ball.r) ball.vy *= -1;
+  // collisions with paddles
+  if(ball.x - ball.r < 18 && ball.y > leftY && ball.y < leftY+PADDLE_H) { ball.vx *= -1.05; }
+  if(ball.x + ball.r > cvs.width-18 && ball.y > rightY && ball.y < rightY+PADDLE_H) { ball.vx *= -1.05; }
+  // reset if out
+  if(ball.x < -20 || ball.x > cvs.width+20){ ball.x = cvs.width/2; ball.y=cvs.height/2; ball.vx = (Math.random()>0.5?4:-4); ball.vy=3;}
+  // controls
+  if(up && rightY>0) rightY -= 6;
+  if(down && rightY < cvs.height-PADDLE_H) rightY += 6;
+  if(w && leftY>0) leftY -= 6;
+  if(s && leftY < cvs.height-PADDLE_H) leftY += 6;
+}
+setInterval(draw, 1000/60);
+</script>
+</body>
+</html>
