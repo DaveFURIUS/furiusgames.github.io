@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flappy</title>
+<style>body{background:#081226;color:#fff;font-family:Arial;text-align:center}canvas{background:linear-gradient(#87ceeb,#00aaff);border-radius:8px;margin-top:12px}</style>
+</head>
+<body>
+  <a href="../index.html" style="color:#7efcff;text-decoration:none;display:inline-block;margin-top:8px">← Volver</a>
+  <h1>Flappy</h1>
+  <canvas id="f" width="400" height="600"></canvas>
+<script>
+const c=document.getElementById('f'), ctx=c.getContext('2d');
+let bird={x:80,y:300,vy:0, r:12};
+let pipes=[];
+let frame=0, gap=150, speed=2;
+document.addEventListener('keydown', ()=> bird.vy = -6);
+document.addEventListener('mousedown', ()=> bird.vy = -6);
+function spawn(){ let y = Math.random()*(c.height - gap - 120)+60; pipes.push({x:c.width, top:y, bottom:y+gap}); }
+function draw(){
+  frame++;
+  // bg
+  ctx.fillStyle='#87ceeb'; ctx.fillRect(0,0,c.width,c.height);
+  // bird
+  bird.vy += 0.45; bird.y += bird.vy;
+  ctx.fillStyle='yellow'; ctx.beginPath(); ctx.arc(bird.x,bird.y,bird.r,0,Math.PI*2); ctx.fill();
+  // pipes
+  if(frame%120===0) spawn();
+  for(let i=pipes.length-1;i>=0;i--){
+    let p=pipes[i]; p.x -= speed;
+    ctx.fillStyle='#1b7a1b';
+    ctx.fillRect(p.x,0,50,p.top);
+    ctx.fillRect(p.x,p.bottom,50,c.height-p.bottom);
+    // collision
+    if(bird.x+bird.r > p.x && bird.x-bird.r < p.x+50 && (bird.y-bird.r < p.top || bird.y+bird.r > p.bottom)){ reset(); return; }
+    if(p.x < -60) pipes.splice(i,1);
+  }
+  if(bird.y > c.height+50 || bird.y < -50) reset();
+}
+function reset(){ bird={x:80,y:300,vy:0,r:12}; pipes=[]; frame=0; }
+setInterval(draw,1000/60);
+</script>
+</body>
+</html>

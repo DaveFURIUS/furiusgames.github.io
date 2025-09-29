@@ -1,0 +1,61 @@
+:root{
+  --bg: #210832;
+  --panel: #2e004b;
+  --card: #3a0066;
+  --accent: #ff7edb;
+  --muted: #cfc3e3;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent 10%),
+              linear-gradient(180deg,#1c0530 0%, #260a3a 100%);
+  color: #fff;
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:1180px;margin:0 auto;padding:20px}
+.topbar{background:#2a0536;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.brand{margin:0;font-size:18px;display:inline-block}
+.menu{float:right}
+.menu a{color:#ddd;margin-left:14px;text-decoration:none;font-weight:600;font-size:14px}
+.section-title{margin:28px 0 12px 0;color:var(--muted)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:18px;
+}
+.card{
+  display:block;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius:14px;
+  padding:12px;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.02);
+}
+.card:hover{ transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.6)}
+.thumb{
+  height:120px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:10px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));
+}
+.thumb-snake{background:linear-gradient(135deg,#1b6b11,#0a2b17)}
+.thumb-pong{background:linear-gradient(135deg,#2a6b8b,#08384d)}
+.thumb-flappy{background:linear-gradient(135deg,#ffd36b,#ff7e7e)}
+.thumb-scratch{background:linear-gradient(135deg,#00bfff,#0066ff)}
+.title{font-weight:700;margin-top:6px;font-size:15px}
+.hint{color:#bba9d6;margin-top:20px}
+.footer{padding:18px 0;text-align:center;color:#b9aede;font-size:13px}
+.thumb-itch2 {
+  background: linear-gradient(135deg, #3a1f5d, #5a3f8d);
+}
+.thumb-htmlgames {
+  background: linear-gradient(135deg, #1f3a5d, #3f5a8d);
+}
+}
+.thumb-juegos{
+  background: linear-gradient(135deg, #1f3a5d, #3f5a8d);
+}
